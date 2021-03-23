@@ -209,3 +209,50 @@ matchNames (sur : listSur) (name: listNames) = (sur,name): (matchNames listSur l
 matchNames2 :: [String] -> [String] -> [String]
 matchNames2 [] [] = []
 matchNames2 ((letter:sur) : listSur) (name: listNames) = (letter:name): (matchNames2 listSur listNames)
+
+-- 2.3.7
+-- remove student with grade < 5
+-- grade++ for students with three names
+
+--f4 [("Dan Matei Popovici",9),("Mihai",4),("Andrei Alex",6)] =  	[(["Dan", "Matei", "Popovici"],10),(["Andrei", "Alex"],6)]
+
+-- verifica lista de nume 
+has3Names :: [String] -> Integer    
+has3Names [] = 0
+has3Names (name: names) = 1 + (has3Names names)
+
+--adauga +1 pt elev cu 3 nume
+addBonus :: ([String],Integer) -> ([String],Integer)
+addBonus (names,grade)
+                  | ((has3Names names) == 3) = (names,grade + 1)
+                  | otherwise  = (names,grade)
+
+-- varianta curs pt separarea de spatii 
+-- 2.3.7
+spaceSep :: String -> [String]
+spaceSep = foldr op [] 
+                where op :: Char -> [String] -> [String]
+                      op ' ' acc = []:acc
+                      op x [] = [[x]]
+                      op x (y:acc) =  (x:y):acc
+
+checkStudents :: [(String,Integer)] -> [([String],Integer)]
+checkStudents [] = []
+checkStudents ((names,grade) : list) 
+                        | (grade > 5) = (addBonus ((spaceSep names),grade)):(checkStudents list) 
+                        | otherwise = checkStudents list
+-- in loc de spaceSep names putem folosi words name ,fac acelasi lucru
+
+
+-- recap 2.3.3
+isPrefix :: String -> String -> Bool 
+isPrefix _ [] = True
+isPrefix [] _ = False  
+isPrefix (ltr : str) (ltr2 : substr) = (ltr == ltr2) && (isPrefix str substr)
+
+findPattern :: String -> String -> Integer 
+findPattern [] _ = 0
+findPattern (ltr:word) substr 
+                  |(isPrefix (ltr:word) substr) = 1 + (findPattern word substr) 
+                  | otherwise  = (findPattern word substr)
+-- use splitOn
