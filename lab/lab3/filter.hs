@@ -19,3 +19,7 @@ convertBool = map toInt
 
 matchBool2 :: [Bool] -> Integer 
 matchBool2 list = foldr (+) 0 (convertBool list)
+
+-- another way to calc the sum of a list
+
+g' = \x -> \y -> y == (x+1)

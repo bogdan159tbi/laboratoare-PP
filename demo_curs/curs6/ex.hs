@@ -64,8 +64,10 @@ transpose ([]:_) = []
 transpose m = (map head m):(transpose (map tail m))
 
 
+type Matrix = [[Integer]]
 
 matrix1 = [[1,2],[3,4]]
+multiplyMatrix :: Matrix -> Matrix -> Matrix
 multiplyMatrix m1 m2 = map (\line -> map (value line) m3) m1 -- map (value line) m3 e ca map (+1) [1,2,3] unde value line asteapta cate o linie din m3(care era de fapt coloana in m2)
                        where m3 = transpose m2
                              value line column = foldr (+) 0 (zipWith (*) line column) -- ia linie si coloana si calc valoarea

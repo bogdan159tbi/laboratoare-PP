@@ -15,7 +15,8 @@ removeHead = map tail
 toString :: String -> [String]
 toString  = map (\c -> [c]) 
 
-suma l = foldr (\x y -> x+y) 0 l
+suma :: [Integer] -> Integer 
+suma  = foldr (\x y -> x+y) 0 
 
 suma2 :: [Integer] -> Integer 
 suma2 l = foldr (+) 0 l
@@ -31,3 +32,9 @@ f = (+)
 g x y = f x  y
 
 
+spaceSep :: String -> [String]
+spaceSep = foldr op [] 
+                where op :: Char -> [String] -> [String]
+                      op ' ' acc = []:acc
+                      op x [] = [[x]]
+                      op x (y:acc) =  (x:y):acc
