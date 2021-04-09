@@ -124,4 +124,4 @@ transformationSequence list img = foldr op img list where
                                   op func img = func img 
 seq1 :: Image -> Image
 seq1 = transformationSequence [invert, union' mask,rotate90r] -- rotate90r nu stiu sa fac rotate
---rotater = flipH transpusa ??
+--rotater = flipH transpusa ?
